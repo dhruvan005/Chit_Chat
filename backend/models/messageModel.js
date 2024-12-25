@@ -1,21 +1,22 @@
 import mongoose from "mongoose";
+import { Conversation } from "./conversationModel.js";
 
 const messageModel = new mongoose.Schema({
-    senderId :{
-        type : mongoose.Schema.Types.ObjectId ,
-        ref : "User" ,
-        required :true
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    receiverId :{
-        type : mongoose.Schema.Types.ObjectId ,
-        ref : "User" ,
-        required :true
+    receiverId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    message : {
-        type : String , 
-        required :true
+    message: {
+        type: String,
+        required: true
     }
 
-},{timestamps : true})
+}, { timestamps: true })
 
-export const Message = mongoose.model("Message" , messageModel)
+export const Message = mongoose.model("Message", messageModel)

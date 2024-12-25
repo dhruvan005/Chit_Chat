@@ -5,7 +5,7 @@ import connectDB from './config/database.js';
 import express from "express";
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
-
+import messageRoute from './routes/messageRoute.js';
 const app = express();
 connectDB();
 
@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/user', userRoute);
+app.use('/message', messageRoute);
 
 app.get('/', (req, res) => {
     res.send("hi i am working ")

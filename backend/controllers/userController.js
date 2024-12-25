@@ -1,10 +1,10 @@
 import { User } from "../models/userModel.js"
 import { ApiError } from "../utils/ApiError.js"
-import jwt from "jsonwebtoken"
 
 export const register = async (req, res) => {
     try {
         const { fullName, username, email, password, conformPassword, gender } = req.body;
+        console.log(req.body);
         if (!fullName || !email || !username || !password || !conformPassword || !gender) {
             throw new ApiError(500, "Some field Is messing");
         }
@@ -30,19 +30,20 @@ export const register = async (req, res) => {
             email,
             gender,
             password,
-            profilePhoto: gender === "male" ? maleProfilePhoto : femaleProfilePhoto
+            profilePhoto: gender === "male" ? maleProfilePhoto : femaleProfilePhoto 
 
         })
+        // for checking in postman pass as raw json
         return res.status(200).json({
-            message: "User created successfully", 
-    })
+            message: "User created successfully",
+        })
 
     } catch (error) {
         console.log(error);
     }
 }
 
-export const login = async (req, res) => { 
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -64,16 +65,16 @@ export const login = async (req, res) => {
             email: user.email
         }
 
-        const token =  user.generateAccessToken()
-        console.log(token);
+        const token = user.generateAccessToken()
 
-        return res.cookie("token" ,token).status(200).json({
+        // console.log(token);
+
+        return res.cookie("token", token).status(200).json({
             message: "User logged in successfully",
-            id : user._id ,
-            email : user.email,
-            username : user.username,
-            profilePhoto : user.profilePhoto
-
+            id: user._id,
+            email: user.email,
+            username: user.username,
+            profilePhoto: user.profilePhoto
         })
 
     } catch (error) {
@@ -81,11 +82,12 @@ export const login = async (req, res) => {
     }
 }
 
-export const logout =  (req, res) => {
+export const logout = (req, res) => {
     try {
         res.clearCookie("token")
         // console.log("user logged out successfully");
         // console.log(req.cookies);
+        console.log("User logged out successfully");
         return res.status(200).json({
             message: "User logged out successfully"
         })
@@ -93,3 +95,17 @@ export const logout =  (req, res) => {
         console.log(error);
     }
 }   
+
+export const getOtherUsers = async (req, res) => { 
+try {
+    const loggedInUserId = req.id
+    const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password")
+    // console.log( "req.id " ,req.id);
+    return res.status(200).json({
+        message: "Other users fetched successfully",
+        otherUsers
+    })
+} catch (error) {
+    console.log( "Error in getOtherUsers" , error);
+}
+}

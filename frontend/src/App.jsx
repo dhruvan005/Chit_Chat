@@ -1,17 +1,33 @@
 import { useState } from 'react'
+import { Routes, Route } from "react-router-dom"
+import Signup from './components/Signup'
+import HomePage from './components/HomePage'
+import Login from './components/Login'
+import { createBrowserRouter ,RouterProvider } from "react-router-dom"
 
-import './App.css'
+const router = createBrowserRouter([
+  {
+    path:"/" ,
+    element: <HomePage/>
+  },
+  {
+    path:"/register" ,
+    element: <Signup/>
+  },
+  {
+    path:"/login" ,
+    element: <Login/>
+  }
+])
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-      <button className="btn  btn-error">Error</button>
-    </h1>
-    </>
+    <div className='p-4 h-screen flex items-center justify-center'>
+    <RouterProvider router={router}/>
+  
+    </div>
   )
 }
 

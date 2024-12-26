@@ -6,17 +6,19 @@ export const register = async (req, res) => {
         const { fullName, username, email, password, conformPassword, gender } = req.body;
         console.log(req.body);
         if (!fullName || !email || !username || !password || !conformPassword || !gender) {
-            throw new ApiError(500, "Some field Is messing");
+            
+            return res.status(500).json({ message: "Some field Is messing" });
         }
         if (password !== conformPassword) {
-            throw new ApiError(500, "password did't match")
+           
+            return res.status(500).json({ message: "password did't match" });
         }
         const existedUser = await User.findOne({
             $or: [{ username }, { email }] // check any one if found it will throw error
         })
 
         if (existedUser) {
-            throw new ApiError(409, "User with email or username already exists")
+            return res.status(409).json({ message: "User with email or username already exists" });
         }
 
         // password hashing is done before user creation
@@ -33,12 +35,21 @@ export const register = async (req, res) => {
             profilePhoto: gender === "male" ? maleProfilePhoto : femaleProfilePhoto 
 
         })
+        const tokenData = {
+            userId: newUser._id,
+            email: newUser.email
+        }
+
+        const token = newUser.generateAccessToken()
+        // console.log(token);
+
         // for checking in postman pass as raw json
-        return res.status(200).json({
+        return res.status(200).cookie("token", token).json({
             message: "User created successfully",
         })
 
     } catch (error) {
+        return res.status(500).json({ message: "Internal server error" });
         console.log(error);
     }
 }
@@ -47,18 +58,19 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            throw new ApiError(500, "Some field Is messing");
+            return res.status(500).json({ message: "Some field Is messing" });
         }
         const user = await User.findOne({ email })
         if (!user) {
-            throw new ApiError(404, "User not found")
+        
+            return res.status(400).json({ message: "User Not Found" });
         }
 
         // we created a method in userModel to check if password is correct or not
 
         const isPasswordCorrect = await user.isPasswordCorrect(password)
         if (!isPasswordCorrect) {
-            throw new ApiError(401, "Password is incorrect")
+            return res.status(401).json({ message: "Password is incorrect" });
         }
         const tokenData = {
             userId: user._id,
@@ -78,6 +90,7 @@ export const login = async (req, res) => {
         })
 
     } catch (error) {
+        return res.status(500).json({ message: "Internal server error" });
         console.log(error);
     }
 }
@@ -92,6 +105,7 @@ export const logout = (req, res) => {
             message: "User logged out successfully"
         })
     } catch (error) {
+        return res.status(500).json({ message: "Internal server error" });
         console.log(error);
     }
 }   
@@ -106,6 +120,7 @@ try {
         otherUsers
     })
 } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
     console.log( "Error in getOtherUsers" , error);
 }
 }

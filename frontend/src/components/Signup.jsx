@@ -35,8 +35,8 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
-      <div className="w-full max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500  md:border md:border-slate-500">
+    <div className="flex justify-center  items-center w-[80vw]  min-h-screen ">
+      <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500  md:border md:border-slate-500">
         <h1 className="text-3xl text-zinc-200 font-bold text-center mb-6">Signup</h1>
         <form className="flex flex-col gap-4" method="post" onSubmit={submitHandler}>
           <label className="input input-bordered flex items-center gap-2">
@@ -182,13 +182,15 @@ export default function Signup() {
           <button className="btn bg-slate-500 min-w-40 m-auto text-white">Sign Up</button>
         </form>
 
-        <div className="h-9"></div>
+        <div className="divider divider-error pb-3"></div>
+<div className="pt-3">
 
         <Link to="/login">
           <div className="flex justify-center items-center h-2">
             <button className="btn btn-outline text-center">Already have an Account / Signin</button>
           </div>
         </Link>
+</div>
       </div>
     </div>
   );

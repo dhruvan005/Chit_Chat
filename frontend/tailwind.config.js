@@ -5,6 +5,9 @@ module.exports = {
     ],
     theme: {
       extend: {},
+      colors: {
+        hoverBlack : '#202122'
+       }
     },
     plugins: [
       require('daisyui'),

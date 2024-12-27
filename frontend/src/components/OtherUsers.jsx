@@ -5,7 +5,7 @@ import SingleUser from './SingleUser'
 export default function OtherUsers() {
     return (
         <div className="h-[80vh] ">
-            <div className="flex flex-col gap-6 custom-scrollbar h-[60vh] overflow-y-auto ">
+            <div className="flex flex-col gap-6  h-[60vh] overflow-y-auto ">
 
                 <SingleUser/>
                 <SingleUser/>
@@ -28,7 +28,6 @@ export default function OtherUsers() {
                 <SingleUser/>
                 <SingleUser/>
                 <SingleUser/>
-                
                 <SingleUser/>
                 <SingleUser/>
                 <SingleUser/>

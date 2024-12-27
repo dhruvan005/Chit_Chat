@@ -3,7 +3,7 @@ import OtherUsers from './OtherUsers'
 
 export default function Sidebar() {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
             <div className="pt-5">
 
                 <form action="">

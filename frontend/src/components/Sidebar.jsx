@@ -1,9 +1,33 @@
 import React from 'react'
 import OtherUsers from './OtherUsers'
+import { useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export default function Sidebar() {
+    const navigate = useNavigate()
+
+    const logoutHandler = async () => {
+        try {
+
+            const res = await axios.get(`http://localhost:3000/user/logout`)
+            // console.log("logout", res);
+
+            if (res) {
+
+                toast.success(res.data.message);
+                navigate("/login")
+
+            }
+        }
+        catch (error) {
+            toast.error(error.response.data.message);
+            console.log(error);
+        }
+    }
+
     return (
-        <div className="flex flex-col ">
+        <div className="flex flex-col h-[60vh] ">
             <div className="pt-5">
 
                 <form action="">
@@ -27,8 +51,10 @@ export default function Sidebar() {
 
 
             </div>
-            <OtherUsers/>
-            
+            <OtherUsers />
+            <div>
+                <button onClick={logoutHandler} className="btn btn-outline btn-wide "> Logout</button>
+            </div>
         </div>
 
     )

@@ -27,24 +27,7 @@ export default function OtherUsers() {
 
     }, [navigate]);
 
-    const logoutHandler = async () => {
-        try {
 
-            const res = await axios.get(`http://localhost:3000/user/logout`)
-            console.log("logout", res);
-
-            if (res) {
-
-                toast.success(res.data.message);
-                navigate("/login")
-
-            }
-        }
-        catch (error) {
-            toast.error(error.response.data.message);
-            console.log(error);
-        }
-    }
 
     const { otherUser } = useSelector(store => store.user);
 
@@ -61,9 +44,7 @@ export default function OtherUsers() {
                 ))}
             </div>
             <div className='h-5'></div>
-            <div>
-                <button onClick={logoutHandler} className="btn btn-outline btn-wide "> Logout</button>
-            </div>
+           
         </div>
     )
 }

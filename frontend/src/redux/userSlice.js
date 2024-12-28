@@ -4,9 +4,9 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         authUser: null,
-        otherUsers: null
+        otherUser: []
 
-    
+
 
     },
     reducers: {
@@ -15,9 +15,9 @@ const userSlice = createSlice({
         }
         ,
         setOtherUser: (state, action) => {
-            state.otherUsers = action.payload
+            state.otherUser = action.payload
             // console.log("inside other user");
-            // console.log("users",state.otherUsers);
+            // console.log("users",state.otherUser);
         }
     }
 }

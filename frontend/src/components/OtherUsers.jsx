@@ -40,7 +40,7 @@ export default function OtherUsers() {
             <div className="flex flex-col gap-6  h-[60vh] overflow-y-auto ">
 
                 {otherUser.map((user, index) => (
-                    <SingleUser key={user._id || index} user={user} /> // Fallback key
+                    <SingleUser key={user._id || index} user={user} /> 
                 ))}
             </div>
             <div className='h-5'></div>

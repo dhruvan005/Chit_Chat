@@ -1,8 +1,10 @@
 import React from 'react'
 import SingleUser from './SingleUser'
-
+import useGetOtherUsers from '../hooks/useGetOtherUsers'
+import toast from 'react-hot-toast';
 
 export default function OtherUsers() {
+    useGetOtherUsers()
     return (
         <div className="h-[80vh] ">
             <div className="flex flex-col gap-6  h-[60vh] overflow-y-auto ">

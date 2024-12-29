@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function SingleMessage() {
+export default function SingleMessage({message}) {
+
+    // console.log(message.message);
     return (
         <div>
             <div className="chat chat-start">
@@ -15,7 +17,7 @@ export default function SingleMessage() {
                    
                     <time className=" text-[20px] opacity-50  ">12:45</time>
                 </div>
-                <div className="chat-bubble">You were the Chosen One!</div>
+                <div className="chat-bubble">{message.message}</div>
                 
             </div>
         

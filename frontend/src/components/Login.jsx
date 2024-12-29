@@ -28,6 +28,7 @@ export default function Login() {
       if (res.status === 200) {
         navigate("/");
         toast.success(res.data.message);
+        // console.log(res.data);
         dispatch(setAuthUser(res.data))
       }
 

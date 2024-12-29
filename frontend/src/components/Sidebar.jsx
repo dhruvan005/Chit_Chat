@@ -3,21 +3,26 @@ import OtherUsers from './OtherUsers'
 import { useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/userSlice';
 
 export default function Sidebar() {
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const logoutHandler = async () => {
         try {
 
             const res = await axios.get(`http://localhost:3000/user/logout`)
             // console.log("logout", res);
 
-            if (res) {
-
+            if (res.status === 200) {
                 toast.success(res.data.message);
-                navigate("/login")
 
+                // Dispatch logout action to Redux store
+                
+                // Navigate to login page
+                navigate('/login');
+                dispatch(logout());
             }
         }
         catch (error) {

@@ -17,7 +17,7 @@ export default function useGetMessage() {
 
                     axios.defaults.withCredentials = true;
                     const response = await axios.get(`http://localhost:3000/message/${id}`)
-                    console.log(response);
+                    // console.log(response);
                     dispatch(setMessages(response.data))
                 } catch (error) {
                     // toast.error(error.response.data.message);

@@ -25,7 +25,7 @@ export default function Signup() {
       });
       console.log(res);
       if (res.status === 200) {
-        navigate('/');
+        navigate('/login');
         toast.success(res.data.message);
       }
     } catch (error) {

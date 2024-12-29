@@ -5,12 +5,14 @@ import store from '../redux/store'
 import { setMessages } from '../redux/messageSlice'
 
 export default function SendInput() {
+    
     const [message, setMessage] = useState("")
     const dispatch = useDispatch()
     const { selectedUser } = useSelector(store => store.user)
     const {messages} = useSelector(store => store.message)
     const id = selectedUser?._id
 
+        // console.log(messages);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault()

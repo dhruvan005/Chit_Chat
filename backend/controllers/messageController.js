@@ -48,9 +48,9 @@ export const getMessage = async (req, res) => {
         const receiverId = req.params.id; 
         // in the url
 
-        if (!mongoose.Types.ObjectId.isValid(senderId) || !mongoose.Types.ObjectId.isValid(receiverId)) {
-            return res.status(400).json({ message: "Invalid sender or receiver ID" });
-        }
+        // if (!mongoose.Types.ObjectId.isValid(senderId) || !mongoose.Types.ObjectId.isValid(receiverId)) {
+        //     return res.status(400).json({ message: "Invalid sender or receiver ID" });
+        // }
 
         const conversation = await Conversation.find({
             participants: { $all: [senderId, receiverId] }
@@ -63,6 +63,6 @@ export const getMessage = async (req, res) => {
         })
     } catch (error) {
         console.log("Error in getMessage", error);
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({ message: "Server error in messages" });
     }
 } 

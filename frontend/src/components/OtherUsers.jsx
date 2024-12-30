@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 
 export default function OtherUsers() {
-    useGetOtherUsers()
+    const { loading } = useGetOtherUsers();
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -30,7 +30,15 @@ export default function OtherUsers() {
 
 
     const { otherUser } = useSelector(store => store.user);
+    
+    if (loading) return 
+     (  <div>
+        <div className="h-4"> </div>
+         <p>Loading...</p>
 
+     </div>
+
+     )
     if (!otherUser || otherUser.length === 0) return <p>No users found.</p>;
     // console.log("otherUser:", otherUser);
 

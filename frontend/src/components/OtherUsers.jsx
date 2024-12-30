@@ -21,8 +21,8 @@ export default function OtherUsers() {
             }
         } catch (error) {
             console.log(error);
-            
-           
+
+
         }
 
     }, [navigate]);
@@ -30,29 +30,36 @@ export default function OtherUsers() {
 
 
     const { otherUser } = useSelector(store => store.user);
-    
-    if (loading) return 
-     (  <div>
-        <div className="h-4"> </div>
-         <p>Loading...</p>
 
-     </div>
+    if (loading) {
 
-     )
-    if (!otherUser || otherUser.length === 0) return <p>No users found.</p>;
-    // console.log("otherUser:", otherUser);
+        return (
+            <div>
+                <div className="h-9"> </div>
+                <p>Loading...</p>
+
+            </div>
+
+        )
+
+    }
+    else {
+
+        if (!otherUser || otherUser.length === 0) return <p>No users found.</p>;
+    }
+
 
 
     return (
-        <div className="h-[80vh] ">
-            <div className="flex flex-col gap-6  h-[60vh] overflow-y-auto ">
+        <div className="h-[50vh] ">
+            <div className="flex flex-col gap-4  h-[50vh] overflow-y-auto ">
 
                 {otherUser.map((user, index) => (
-                    <SingleUser key={user._id || index} user={user} /> 
+                    <SingleUser key={user._id || index} user={user} />
                 ))}
             </div>
             <div className='h-5'></div>
-           
+
         </div>
     )
 }

@@ -43,7 +43,7 @@ export default function Messages() {
     if (!Array.isArray(messages)) return null;
 
     return (
-        <div className="h-[60vh] overflow-y-auto">
+        <div className="h-[72vh] overflow-y-auto">
             {Object.entries(groupedMessages).map(([date, messages]) => (
                 <div key={date}>
                     {/* Render the date header */}

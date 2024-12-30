@@ -5,7 +5,8 @@ const userSlice = createSlice({
     initialState: {
         authUser: JSON.parse(localStorage.getItem('authUser')) || null,
         otherUser: [],
-        selectedUser: null
+        selectedUser: null,
+        onlineUsers :null
     },
     reducers: {
         setAuthUser: (state, action) => {
@@ -27,10 +28,13 @@ const userSlice = createSlice({
             state.selectedUser = null;
             state.otherUser = null,
             localStorage.removeItem('authUser'); // Clear persisted data on logout
-        }
+        } ,
+        setOnlineUsers:(state, action) => {
+            state.onlineUsers = action.payload
+        },
     }
 }
 )
 
-export const { setAuthUser, setOtherUser , setSelectedUser, clearSelectedUser,logout  } = userSlice.actions;
+export const { setAuthUser, setOtherUser , setSelectedUser, clearSelectedUser,logout,setOnlineUsers  } = userSlice.actions;
 export default userSlice.reducer

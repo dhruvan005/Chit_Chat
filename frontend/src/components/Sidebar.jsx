@@ -51,7 +51,7 @@ export default function Sidebar() {
     }
 
     return (
-        <div className="flex flex-col h-[60vh] ">
+        <div className="flex flex-col h-[100vh] pb-6 ">
             <div className="pt-5">
 
                 <form action="" onSubmit={onSearchSubmitHandler}>
@@ -85,6 +85,7 @@ export default function Sidebar() {
 
             </div>
             <OtherUsers />
+            <div className="flex-grow"></div>
             <div>
                 <button onClick={logoutHandler} className="btn btn-outline btn-wide "> Logout</button>
             </div>

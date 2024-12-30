@@ -1,52 +1,41 @@
-// import {Server} from "socket.io";
-// import http from "http";
-// import express from "express";
-
-// const app = express();
-
-// const server = http.createServer(app);
-// const io = new Server(server, {
-//     cors:{
-//         origin:['http://localhost:5173/'],
-//         methods:['GET', 'POST'],
-//     },
-// });
-
-// io.on('connection', (socket)=>{
-
-//     console.log("user Connected" ,socket.id);
-//     console.log(socket.id);
-
-// })
-// server.listen(3000, () => {
-//     console.log('server running at http://localhost:3000');
-//   });
-// export {app, io, server};
 
 
 import { Server } from 'socket.io';
 
 const initializeSocket = (server) => {
-  const io = new Server(server, {
-    cors: {
-      origin: ['http://localhost:5173'], // Your Vite app
-      methods: ['GET', 'POST'],
-    },
-  });
-
-  io.on('connection', (socket) => {
-    console.log('User Connected:', socket.id);
-
-    socket.on('disconnect', (reason) => {
-      console.log(`Socket ${socket.id} disconnected: ${reason}`);
+    const io = new Server(server, {
+        cors: {
+            origin: ['http://localhost:5173'], // Your Vite app
+            methods: ['GET', 'POST'],
+        },
     });
 
-    socket.on('error', (err) => {
-      console.error(`Socket ${socket.id} error:`, err);
-    });
-  });
+    const userSocketMap ={
+    
+    } 
 
-  return io;
+    io.on('connection', (socket) => {
+        console.log('User Connected:', socket.id);
+        const userId = socket.handshake.query.userId
+
+        if(userId !== undefined) {
+            userSocketMap[userId] = socket.id 
+        }
+
+        io.emit('getOnlineUsers' , Object.keys(userSocketMap))
+
+        socket.on('disconnect', (reason) => {
+            console.log(`Socket ${socket.id} disconnected`);
+            delete userSocketMap[userId]
+            io.emit('getOnlineUsers' , Object.keys(userSocketMap))
+        });
+
+        socket.on('error', (err) => {
+            console.error(`Socket ${socket.id} error:`, err);
+        });
+    });
+
+    return io;
 };
 
 export default initializeSocket;

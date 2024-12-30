@@ -33,7 +33,7 @@ export default function Login() {
       }
 
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
       console.log(error);
     }
     setUser({
@@ -50,9 +50,6 @@ export default function Login() {
       <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500  md:border-slate-500">
         <h1 className="text-4xl text-zinc-200 font-bold text-center mb-6">Login</h1>
         <form className="flex flex-col gap-4" method="post" onSubmit={submitHandler}>
-
-
-
 
           <label className="input input-bordered flex items-center gap-2">
             <svg
@@ -112,8 +109,6 @@ export default function Login() {
         </div>
       </div>
     </div>
-
-
 
   );
 }

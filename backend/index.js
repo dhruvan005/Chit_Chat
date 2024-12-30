@@ -1,18 +1,25 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+
 import connectDB from './config/database.js';
 import express from "express";
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoute.js';
 import messageRoute from './routes/messageRoute.js';
 import cors from "cors"
+import http from 'http';
+import initializeSocket from './socket/socket.js'; 
+
+
 
 const app = express();
-connectDB();
 
+connectDB();
+const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
+const io = initializeSocket(server);
 
 // routes 
 
@@ -30,10 +37,9 @@ app.use('/user', userRoute);
 app.use('/message', messageRoute);
 
 
-app.get('/', (req, res) => {
-    res.send("hi i am working ")
-})
 
-app.listen(PORT, () => {
-    console.log(`Server running Port ${PORT} `);
-})
+server.listen(3000, () => {
+    console.log('Server running at http://localhost:3000');
+  });
+
+export { app, io, server };

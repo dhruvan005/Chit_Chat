@@ -13,7 +13,7 @@ const SingleUser = ({ user }) => {
             dispatch(setSelectedUser(user))
     }
 
-   
+
     return (
         <div 
         className={`
@@ -22,7 +22,7 @@ const SingleUser = ({ user }) => {
         onClick={() => selectedUserHandler(user)}
         >
             <div className={`${isOnline ? 'online' :''} avatar  `} >
-                <div className="w-12 h-12 rounded-full" >
+                <div className="w-8 h-8 rounded-full" >
                     <img src={user.profilePhoto} alt="" />
                 </div>
             </div>

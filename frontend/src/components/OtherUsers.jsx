@@ -51,8 +51,8 @@ export default function OtherUsers() {
 
 
     return (
-        <div className="h-[50vh] ">
-            <div className="flex flex-col gap-4  h-[50vh] overflow-y-auto ">
+        <div className="h-full ">
+            <div className="flex flex-col gap-4  h-full overflow-y-auto ">
 
                 {otherUser.map((user, index) => (
                     <SingleUser key={user._id || index} user={user} />

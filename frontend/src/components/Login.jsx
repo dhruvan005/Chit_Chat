@@ -24,12 +24,15 @@ export default function Login() {
         },
         withCredentials: true
       });
+      
 
       if (res.status === 200) {
         navigate("/");
         toast.success(res.data.message);
         // console.log(res.data);
         dispatch(setAuthUser(res.data))
+      }else {
+        navigate("/login")
       }
 
     } catch (error) {

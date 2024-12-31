@@ -2,15 +2,17 @@
 
 import React, { useMemo } from 'react';
 import SingleMessage from './SingleMessage';
-import useGetMessage from '../hooks/useGetMessages';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
+import useGetRealTimeMessages from '../hooks/useGetRealTimeMessage.jsx';
+import useGetMessages from '../hooks/useGetMessages.jsx';
 
 export default function Messages() {
-    useGetMessage();
+    useGetMessages()
+    useGetRealTimeMessages()
 
-    const messages = useSelector((store) => store.message.messages, shallowEqual);
+    const { messages } = useSelector((store) => store.message);
 
-    // Memoize grouped messages
+
     const groupedMessages = useMemo(() => {
         if (!Array.isArray(messages)) return {};
 
@@ -48,7 +50,7 @@ export default function Messages() {
                 <div key={date}>
                     {/* Render the date header */}
                     <div className=" w-fit text-center text-neutral-200 rounded-md p-2 m-auto bg-hoverBlack my-4">{date}</div>
-                    {/* Render the grouped messages */}
+
                     {messages.map((message) => (
                         <SingleMessage key={message._id} message={message} />
                     ))}

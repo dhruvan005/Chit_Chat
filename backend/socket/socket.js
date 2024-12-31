@@ -1,6 +1,9 @@
-
-
 import { Server } from 'socket.io';
+const userSocketMap = {};
+
+const getReceiverSocketId = (receiverId) => {
+    return userSocketMap[receiverId];
+}
 
 const initializeSocket = (server) => {
     const io = new Server(server, {
@@ -10,24 +13,20 @@ const initializeSocket = (server) => {
         },
     });
 
-    const userSocketMap ={
-    
-    } 
-
     io.on('connection', (socket) => {
         console.log('User Connected:', socket.id);
         const userId = socket.handshake.query.userId
 
-        if(userId !== undefined) {
-            userSocketMap[userId] = socket.id 
+        if (userId !== undefined) {
+            userSocketMap[userId] = socket.id
         }
 
-        io.emit('getOnlineUsers' , Object.keys(userSocketMap))
+        io.emit('getOnlineUsers', Object.keys(userSocketMap))
 
         socket.on('disconnect', (reason) => {
             console.log(`Socket ${socket.id} disconnected`);
             delete userSocketMap[userId]
-            io.emit('getOnlineUsers' , Object.keys(userSocketMap))
+            io.emit('getOnlineUsers', Object.keys(userSocketMap))
         });
 
         socket.on('error', (err) => {
@@ -39,3 +38,6 @@ const initializeSocket = (server) => {
 };
 
 export default initializeSocket;
+
+// solve the error 
+export { getReceiverSocketId }

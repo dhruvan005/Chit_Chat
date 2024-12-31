@@ -28,35 +28,68 @@ const router = createBrowserRouter([
 
 function App() {
   const { authUser } = useSelector(store => store.user)
-  
+  const {socket} = useSelector(store=>store.socket);
   const dispatch = useDispatch()
+  // useEffect(() => {
+  //   if (authUser) {
+  //     const socket = io('http://localhost:3000', {
+  //       transports: ['websocket'],
+  //       query: {
+  //         userId: authUser.id
+  //       },
+  //     });
+  //     socket.on('connect', () => {
+  //       console.log('Connected to the server with ID:', socket.id);
+  //     });
+
+  //     // ...existing code...
+  //     socket.on('connect_error', (err) => {
+  //       console.error('Connection error:', err);
+  //       if (err.type === 'TransportError') {
+  //         console.error('TransportError details:', err.message);
+  //       }
+  //     });
+
+  //     dispatch(setSocket(socket));
+  //     socket.on('getOnlineUsers', (onlineUser) => {
+  //       dispatch(setOnlineUsers(onlineUser))
+  //     })
+  //     return () => {
+  //       socket.disconnect();
+  //     };
+  //   }
+  //   else {
+  //     if (socket) {
+  //       socket.close();
+  //       dispatch(setSocket(null));
+  //     }
+  //   }
+
+
+  // }, [authUser])
+
+
   useEffect(() => {
-    if (authUser) {
-      const socket = io('http://localhost:3000', {
+    if(authUser){
+      const socketio = io(`http://localhost:3000`, {
         transports: ['websocket'],
         query: {
           userId: authUser.id
         },
       });
-      socket.on('connect', () => {
-        console.log('Connected to the server with ID:', socket.id);
+
+      dispatch(setSocket(socketio));
+
+      socketio?.on('getOnlineUsers', (onlineUsers)=>{
+        dispatch(setOnlineUsers(onlineUsers))
       });
 
-      socket.on('connect_error', (err) => {
-        console.error('Connection error:', err);
-      });
-
-      socket.on('disconnect', (reason) => {
-        console.warn('Disconnected from server:', reason);
-      });
-
-      dispatch(setSocket(socket));
-      socket.on('getOnlineUsers' , (onlineUser) => {
-        dispatch(setOnlineUsers(onlineUser))
-      })
-      return () => {
-        socket.disconnect();
-      };
+      return () => socketio.close();
+    }else{
+      if(socket){
+        socket.close();
+        dispatch(setSocket(null));
+      }
     }
   }, [authUser])
 

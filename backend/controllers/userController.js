@@ -23,8 +23,8 @@ export const register = async (req, res) => {
 
         // password hashing is done before user creation
 
-        const maleProfilePhoto = `https://avatar.iran.liara.run/public/boy?username=${username}`
-        const femaleProfilePhoto = `https://avatar.iran.liara.run/public/girl?username=${username}`
+        const maleProfilePhoto = `https://avatar.iran.liara.run/public/boy`
+        const femaleProfilePhoto = `https://avatar.iran.liara.run/public/girl`
 
         const newUser = await User.create({
             fullName,

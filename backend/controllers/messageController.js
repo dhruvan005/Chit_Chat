@@ -1,6 +1,11 @@
 import { Conversation } from '../models/conversationModel.js';
-import mongoose from 'mongoose';
+
 import { Message } from '../models/messageModel.js';
+
+import { getReceiverSocketId } from "../socket/socket.js"
+import initializeSocket from '../socket/socket.js';
+const io = initializeSocket();
+
 export const sendMessage = async (req, res) => {
     try {
         const senderId = req.id; // logged in user's id
@@ -25,14 +30,16 @@ export const sendMessage = async (req, res) => {
             message
         });
 
-        if (newMessage) {
-            gotConversation.messages.push(newMessage._id)
-            gotConversation.save()
+        gotConversation.messages.push(newMessage._id);
+        await gotConversation.save(); // Save once to avoid ParallelSaveError
+
+        // Emit message through Socket.IO
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage); // Emit the new message
         }
 
-        return res.status(200).json({
-            newMessage
-        })
+        return res.status(201).json({ newMessage });
 
     } catch (error) {
         console.log("Error in sendMessage", error);
@@ -47,8 +54,8 @@ export const getMessage = async (req, res) => {
         const receiverId = req.params.id;
         const senderId = req.id;
         const conversation = await Conversation.findOne({
-            participants:{$all : [senderId, receiverId]}
-        }).populate("messages"); 
+            participants: { $all: [senderId, receiverId] }
+        }).populate("messages");
         // console.log(conversation);
         return res.status(200).json(conversation?.messages);
     } catch (error) {

@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import SingleMessage from './SingleMessage';
 import { useSelector } from 'react-redux';
-import useGetRealTimeMessages from '../hooks/useGetRealTimeMessage.jsx';
+import useGetRealTimeMessages from '../hooks/useGetRealTimeMessages.jsx';
 import useGetMessages from '../hooks/useGetMessages.jsx';
 
 export default function Messages() {

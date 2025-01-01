@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMessages } from '../redux/messageSlice';
 import useGetMessages from '../hooks/useGetMessages';
+import useGetRealTimeMessages from '../hooks/useGetRealTimeMessages';
 
 
 export default function SendInput() {
@@ -16,6 +17,7 @@ export default function SendInput() {
 
 
     useGetMessages()
+    // useGetRealTimeMessages()
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -29,6 +31,7 @@ export default function SendInput() {
 
             const newMessage = res?.data?.newMessage;
             console.log("newMessage", newMessage);
+            console.log("socket inside socket" , socket);
             if (newMessage) {
                 // Append the new message to Redux state
                 socket.emit('newMessage', newMessage);
@@ -38,8 +41,6 @@ export default function SendInput() {
             console.error("Error in onSubmitHandler:", error);
         }
         setMessage(" "); // Reset input field
-
-
     }
 
     return (

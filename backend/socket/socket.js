@@ -16,12 +16,12 @@ const initializeSocket = (server) => {
     io.on('connection', (socket) => {
         console.log('User Connected:', socket.id);
         const userId = socket.handshake.query.userId
-        // console.log("user Id" , userId);
+        console.log("user Id" , userId);
         if (userId !== undefined) {
             userSocketMap[userId] = socket.id
         }
         socket.on('newMessage', (message) => {
-            console.log('New message received:', message);
+            console.log('New message received at socket.js ', message);
             // getReceiverSocketId while user is online then and then it will give SocketId otherwise it will givve undefined 
             const receiverSocketId = getReceiverSocketId(message?.receiverId);
 

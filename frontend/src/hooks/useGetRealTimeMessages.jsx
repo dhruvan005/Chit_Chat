@@ -10,6 +10,7 @@ export default function useGetRealTimeMessages() {
         if (socket) {
             console.log("socket", socket);
             console.log("inside the useGetRealTimeMessages");
+
             socket.on("receiveMessage", (newMessage) => {
                 console.log("new Message at client side", newMessage);
                 dispatch(addMessage(newMessage));
@@ -18,7 +19,7 @@ export default function useGetRealTimeMessages() {
         
         return () => {
             if (socket) {
-                socket.off("newMessage");
+                socket.off("receiveMessage");
             }
         };
     }, [socket, dispatch])

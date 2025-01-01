@@ -34,7 +34,7 @@ export default function Sidebar() {
         e.preventDefault();
         dispatch(clearSelectedUser())
         const searchedUser = otherUser?.find((user) => user.fullName.toLowerCase().includes(search.toLowerCase()))
-        console.log(searchedUser);
+        // console.log(searchedUser);
         if (searchedUser) {
             // dispatch(setOtherUser([searchedUser]))
             dispatch(setSelectedUser(searchedUser))

@@ -8,11 +8,11 @@ export default function useGetRealTimeMessages() {
     
     useEffect(() => {
         if (socket) {
-            console.log("socket", socket);
-            console.log("inside the useGetRealTimeMessages");
+            // console.log("socket", socket);
+            // console.log("inside the useGetRealTimeMessages");
 
             socket.on("receiveMessage", (newMessage) => {
-                console.log("new Message at client side", newMessage);
+                // console.log("new Message at client side", newMessage);
                 dispatch(addMessage(newMessage));
             });
         }

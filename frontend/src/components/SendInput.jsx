@@ -30,8 +30,8 @@ export default function SendInput() {
             );
 
             const newMessage = res?.data?.newMessage;
-            console.log("newMessage", newMessage);
-            console.log("socket inside socket" , socket);
+            // console.log("newMessage", newMessage);
+            // console.log("socket inside socket" , socket);
             if (newMessage) {
                 // Append the new message to Redux state
                 socket.emit('newMessage', newMessage);

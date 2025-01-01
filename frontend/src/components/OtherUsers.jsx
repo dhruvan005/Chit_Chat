@@ -21,8 +21,6 @@ export default function OtherUsers() {
             }
         } catch (error) {
             console.log(error);
-
-
         }
 
     }, [navigate]);

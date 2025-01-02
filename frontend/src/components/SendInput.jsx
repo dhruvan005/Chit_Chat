@@ -17,7 +17,6 @@ export default function SendInput() {
 
 
     useGetMessages()
-    // useGetRealTimeMessages()
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -30,8 +29,13 @@ export default function SendInput() {
             );
 
             const newMessage = res?.data?.newMessage;
-            // console.log("newMessage", newMessage);
-            // console.log("socket inside socket" , socket);
+
+            // this will send message as "newMessage" to the selected user_Id 
+            //  -> the socket recives as "newMessage" and 
+            // -> if user is online then and then only it send message as the name of "receiveMessage" 
+            // the "receiveMessage" is handled by the "useGetRealTimeMessages" hook then it dispatch using addMessage on the reciver side 
+            // -> else it store in to the database
+
             if (newMessage) {
                 // Append the new message to Redux state
                 socket.emit('newMessage', newMessage);
@@ -40,7 +44,7 @@ export default function SendInput() {
         } catch (error) {
             console.error("Error in onSubmitHandler:", error);
         }
-        setMessage(" "); // Reset input field
+        setMessage(" "); 
     }
 
     return (

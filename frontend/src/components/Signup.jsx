@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import validator from "validator";
+
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -16,6 +18,23 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Client-side validation
+    if (!user.fullName || !user.username || !user.email || !user.password || !user.conformPassword || !user.gender) {
+      toast.error("Some fields are missing");
+      return;
+    }
+  
+    if (!validator.isEmail(user.email)) {
+      toast.error("Email is invalid");
+      return;
+    }
+  
+    if (user.password !== user.conformPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     try {
       const res = await axios.post('http://localhost:3000/user/register', user, {
         headers: {
@@ -23,7 +42,7 @@ export default function Signup() {
         },
         withCredentials: true
       });
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         navigate('/login');
         toast.success(res.data.message);

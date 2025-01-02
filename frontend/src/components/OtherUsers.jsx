@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import SingleUser from './SingleUser'
 import useGetOtherUsers from '../hooks/useGetOtherUsers'
-import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 

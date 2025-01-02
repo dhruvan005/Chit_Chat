@@ -36,7 +36,7 @@ export default function MessageContainer() {
                         <h1 className="text-4xl font-bold text-gray-700">
                             Welcome back, <span className="text-indigo-600">{authUser?.fullName}</span>! 🎉
                         </h1>
-                        <h3 className="text-xl text-zinc-500 mt-4"> Message Your friend and get Updates or do Gooossip  </h3>
+                        <h3 className="text-xl text-zinc-500 mt-4"> Message Your friend and get Updates</h3>
                     </div>
                 )
             }

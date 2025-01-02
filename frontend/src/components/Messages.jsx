@@ -1,5 +1,3 @@
-
-
 import React, { useMemo } from 'react';
 import SingleMessage from './SingleMessage';
 import { useSelector } from 'react-redux';

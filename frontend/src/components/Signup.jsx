@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import validator from "validator";
 
 
+
 export default function Signup() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -24,12 +25,12 @@ export default function Signup() {
       toast.error("Some fields are missing");
       return;
     }
-  
+
     if (!validator.isEmail(user.email)) {
       toast.error("Email is invalid");
       return;
     }
-  
+
     if (user.password !== user.conformPassword) {
       toast.error("Passwords do not match");
       return;
@@ -54,8 +55,9 @@ export default function Signup() {
   };
 
   return (
+
     <div className="flex justify-center  items-center w-[80vw]  min-h-screen ">
-      <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500  md:border-slate-500">
+      <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500">
         <h1 className="text-3xl text-zinc-200 font-bold text-center mb-6">Signup</h1>
         <form className="flex flex-col gap-4" method="post" onSubmit={submitHandler}>
           <label className="input input-bordered flex items-center gap-2">
@@ -170,6 +172,15 @@ export default function Signup() {
             />
           </label>
 
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text">Pick a Profile Photo</span>
+
+            </div>
+            <input type="file" name="profilePhoto" className="file-input file-input-bordered w-full " />
+
+          </label>
+
           <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
             <label className="label p-2">Gender</label>
             <div className="flex items-center gap-2">
@@ -202,14 +213,14 @@ export default function Signup() {
         </form>
 
         <div className="divider divider-error pb-3"></div>
-<div className="pt-3">
+        <div className="pt-3">
 
-        <Link to="/login">
-          <div className="flex justify-center items-center h-2">
-            <button className="btn btn-outline text-center">Already have an Account / Signin</button>
-          </div>
-        </Link>
-</div>
+          <Link to="/login">
+            <div className="flex justify-center items-center h-2">
+              <button className="btn btn-netural text-center">Already have an Account / Signin</button>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );

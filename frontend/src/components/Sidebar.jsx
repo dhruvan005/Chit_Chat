@@ -52,7 +52,7 @@ export default function Sidebar() {
 
                 <form action="" onSubmit={onSearchSubmitHandler}>
 
-                    <label className=" input input-bordered flex items-center gap-2 w-full justify-between">
+                    <label className=" input border-4 flex items-center gap-2 w-full justify-between">
                         <div>
 
                             <input

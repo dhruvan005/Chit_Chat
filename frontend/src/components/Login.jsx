@@ -106,7 +106,7 @@ export default function Login() {
 
           <Link to="/register">
             <div className="flex justify-center items-center h-2">
-              <button className="btn btn-outline text-center"> Don't have an Account / SignUp </button>
+              <button className="btn  btn-neutral text-center"> Don't have an Account / SignUp </button>
             </div>
           </Link>
         </div>

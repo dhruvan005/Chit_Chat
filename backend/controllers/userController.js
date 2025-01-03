@@ -1,11 +1,13 @@
 import { User } from "../models/userModel.js";
-import { ApiError } from "../utils/ApiError.js";
 import validator from "validator";
+
 export const register = async (req, res) => {
   try {
     const { fullName, username, email, password, conformPassword, gender } =
       req.body;
+    
     console.log(req.body);
+
     if (
       !fullName ||
       !email ||
@@ -17,8 +19,9 @@ export const register = async (req, res) => {
       return res.status(500).json({ message: "Some field Is messing" });
     }
     if (email) {
-      const isValid =  validator.isEmail(email);
-      if(!isValid) return res.status(500).json({ message: "Email is invalid" });
+      const isValid = validator.isEmail(email);
+      if (!isValid)
+        return res.status(500).json({ message: "Email is invalid" });
     }
 
     if (password !== conformPassword) {
@@ -36,8 +39,8 @@ export const register = async (req, res) => {
 
     // password hashing is done before user creation
 
-    const maleProfilePhoto = `https://avatar.iran.liara.run/public/boy`;
-    const femaleProfilePhoto = `https://avatar.iran.liara.run/public/girl`;
+    const maleProfilePhoto = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const femaleProfilePhoto = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
     const newUser = await User.create({
       fullName,
@@ -56,12 +59,12 @@ export const register = async (req, res) => {
     // console.log(token);
 
     // for checking in postman pass as raw json
-    return res.status(200).cookie("token", token).json({
+    return res.status(200).cookie("token", token, { httpOnly: true }).json({
       message: "User created successfully",
     });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
     console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -133,7 +136,7 @@ export const getOtherUsers = async (req, res) => {
       otherUsers,
     });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
     console.log("Error in getOtherUsers", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

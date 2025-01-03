@@ -10,10 +10,11 @@ body {
 }
 
 body {
-  background: url('../public/bg-gradient.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: rgb(14,23,30);
+  background: -moz-linear-gradient(90deg, rgba(14,23,30,1) 0%, rgba(133,144,154,1) 60%);
+  background: -webkit-linear-gradient(90deg, rgba(14,23,30,1) 0%, rgba(133,144,154,1) 60%);
+  background: linear-gradient(90deg, rgba(14,23,30,1) 0%, rgba(133,144,154,1) 60%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0e171e",endColorstr="#85909a",GradientType=1);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,7 @@ import messageRoute from './routes/messageRoute.js';
 import cors from "cors"
 import http from 'http';
 import initializeSocket from './socket/socket.js'; 
-
+import path from 'path';
 
 
 const app = express();
@@ -26,6 +26,7 @@ const io = initializeSocket(server);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use('/public', express.static(path.join("__dirname", 'public')));
 
 const corsOption= {
     origin:"http://localhost:5173" ,

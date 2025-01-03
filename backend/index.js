@@ -29,7 +29,7 @@ app.use(cookieParser());
 app.use('/public', express.static(path.join("__dirname", 'public')));
 
 const corsOption= {
-    origin:"http://localhost:5173" ,
+    origin:["http://localhost:5173" ,"https://chit-chat-ten-chi.vercel.app" ] ,
     credentials : true
 }
 app.use(cors(corsOption))

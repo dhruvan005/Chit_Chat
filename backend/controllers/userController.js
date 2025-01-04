@@ -1,12 +1,20 @@
 import { User } from "../models/userModel.js";
 import validator from "validator";
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production', // true in production, false in development
+  sameSite: 'strict',
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+};
+
+
 export const register = async (req, res) => {
   try {
     const { fullName, username, email, password, conformPassword, gender } =
       req.body;
     
-    console.log(req.body);
+    // console.log(req.body);
 
     if (
       !fullName ||
@@ -50,6 +58,8 @@ export const register = async (req, res) => {
       password,
       profilePhoto: gender === "male" ? maleProfilePhoto : femaleProfilePhoto,
     });
+
+    console.log("newUser" , newUser);
     const tokenData = {
       userId: newUser._id,
       email: newUser.email,
@@ -59,8 +69,12 @@ export const register = async (req, res) => {
     // console.log(token);
 
     // for checking in postman pass as raw json
-    return res.cookie("token", token, { httpOnly: true, secure: false }).status(200).json({
+    return res
+    .cookie("token", token, cookieOptions)
+    .status(200)
+    .json({
       message: "User created successfully",
+      token: token
     });
   } catch (error) {
     console.log(error);
@@ -94,13 +108,17 @@ export const login = async (req, res) => {
 
     // console.log(token);
 
-    return res.cookie("token", token, { httpOnly: true, secure: false }).status(200).json({
+    return res
+    .cookie("token", token, cookieOptions)
+    .status(200)
+    .json({
       message: "User logged in successfully",
       id: user._id,
       fullName: user.fullName,
       email: user.email,
       username: user.username,
       profilePhoto: user.profilePhoto,
+      token: token
     });
   } catch (error) {
     console.log(error);

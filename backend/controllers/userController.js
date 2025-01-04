@@ -103,8 +103,8 @@ export const login = async (req, res) => {
       profilePhoto: user.profilePhoto,
     });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
     console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -118,8 +118,8 @@ export const logout = (req, res) => {
       message: "User logged out successfully",
     });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error" });
     console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

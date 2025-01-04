@@ -19,10 +19,10 @@ export default function Sidebar() {
 
             if (res.status === 200) {
                 toast.success(res.data.message);
+                Cookies.remove('token'); // Clear the token from cookies
                 navigate('/login');
                 dispatch(logout());
-            }
-        }
+            }}
         catch (error) {
             toast.error(error.response.data.message);
             console.log(error);

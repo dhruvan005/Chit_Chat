@@ -45,7 +45,7 @@ export default function Signup() {
       });
       // console.log(res);
       if (res.status === 200) {
-        navigate('/login');
+        navigate('/');
         toast.success(res.data.message);
       }
     } catch (error) {
@@ -55,7 +55,6 @@ export default function Signup() {
   };
 
   return (
-
     <div className="flex justify-center  items-center w-[80vw]  min-h-screen ">
       <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500">
         <h1 className="text-3xl text-zinc-200 font-bold text-center mb-6">Signup</h1>

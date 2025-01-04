@@ -172,14 +172,14 @@ export default function Signup() {
             />
           </label>
 
-          <label className="form-control w-full max-w-xs">
+          {/* <label className="form-control w-full max-w-xs">
             <div className="label">
               <span className="label-text">Pick a Profile Photo</span>
 
             </div>
             <input type="file" name="profilePhoto" className="file-input file-input-bordered w-full " />
 
-          </label>
+          </label> */}
 
           <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4 space-y-2 sm:space-y-0">
             <label className="label p-2">Gender</label>

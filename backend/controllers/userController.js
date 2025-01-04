@@ -59,7 +59,7 @@ export const register = async (req, res) => {
     // console.log(token);
 
     // for checking in postman pass as raw json
-    return res.status(200).cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' }).json({
+    return res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' }).status(200).json({
       message: "User created successfully",
     });
   } catch (error) {
@@ -94,14 +94,13 @@ export const login = async (req, res) => {
 
     // console.log(token);
 
-    return res.cookie("token", token,{ httpOnly: true, secure: process.env.NODE_ENV === 'production' }).status(200).json({
+    return res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' }).status(200).json({
       message: "User logged in successfully",
       id: user._id,
       fullName: user.fullName,
       email: user.email,
       username: user.username,
       profilePhoto: user.profilePhoto,
-      // user ,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

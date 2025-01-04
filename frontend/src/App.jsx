@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     if (authUser && !socket) {
-      const socketio = io('http://localhost:3000', {
+      const socketio = io('https://chit-chat-r32l.onrender.com', {
         transports: ['websocket'],
         query: {
           userId: authUser.id,

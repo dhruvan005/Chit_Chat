@@ -16,7 +16,7 @@ export default function useGetOtherUsers() {
                 // when we are using isAuthenticated middleware at that time we have to give withCredentials = true  
 
                 axios.defaults.withCredentials = true;
-                const res = await axios.get(`http://localhost:3000/user/`)
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/`)
                 dispatch(setOtherUser(res.data.otherUsers))
                 // console.log(res);
             } catch (error) {

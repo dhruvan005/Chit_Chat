@@ -23,7 +23,7 @@ export default function SendInput() {
         if (!message.trim()) return; // Avoid empty messages
         try {
             const res = await axios.post(
-                `http://localhost:3000/message/send/${id}`,
+                `${import.meta.env.VITE_API_BASE_URL}/message/send/${id}`,
                 { message },
                 { headers: { "Content-Type": "application/json" }, withCredentials: true }
             );

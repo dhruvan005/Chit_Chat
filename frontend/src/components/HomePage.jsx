@@ -49,11 +49,12 @@ const HomePage = () => {
     <div className='flex rounded-lg  h-full overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
       <div className="w-[20vw]">
       <Sidebar />
-
       </div>
-      <div className="w-[75vw] p-2">
-      <MessageContainer />
 
+      <div className="bg-neutral-500 divider  divider-horizontal w-[1px]"></div>
+      
+      <div className="w-[75vw] p-1">
+      <MessageContainer />
       </div>
     </div>
   )

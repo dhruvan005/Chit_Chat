@@ -16,7 +16,7 @@ export default function useGetOtherUsers() {
                 axios.defaults.withCredentials = true;
                 const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user`);
                 dispatch(setOtherUsers(res.data.otherUsers));
-                console.log("res in getother user",res);
+                // console.log("res in getother user",res);
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.log(error);

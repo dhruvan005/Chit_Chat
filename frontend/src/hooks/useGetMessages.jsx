@@ -36,29 +36,3 @@ export default function useGetMessages () {
         }
     }, [id, dispatch])
 }
-
-// import React, { useEffect } from 'react'
-// import axios from "axios";
-// import {useSelector,useDispatch} from "react-redux";
-// import { setMessages } from '../redux/messageSlice';
-
-// const useGetMessages = () => {
-//     const {selectedUser} = useSelector(store=>store.user);
-//     const dispatch = useDispatch();
-//     const id = selectedUser?._id
-
-//     useEffect(() => {
-//         const fetchMessages = async () => {
-//             try {
-//                 axios.defaults.withCredentials = true;
-//                 const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}`);
-//                 dispatch(setMessages(res.data))
-//             } catch (error) {
-//                 console.log(error);
-//             }
-//         }
-//         fetchMessages();
-//     }, [selectedUser?._id,setMessages]);
-// }
-
-// export default useGetMessages

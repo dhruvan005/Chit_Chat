@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useDispatch } from "react-redux";
-import { setOtherUser } from '../redux/userSlice';
+import { setOtherUsers } from '../redux/userSlice';
 
 export default function useGetOtherUsers() {
     const [hasFetched, setHasFetched] = useState(false);
@@ -15,8 +15,8 @@ export default function useGetOtherUsers() {
             try {
                 axios.defaults.withCredentials = true;
                 const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user`);
-                dispatch(setOtherUser(res.data.otherUsers));
-                // console.log(res);
+                dispatch(setOtherUsers(res.data.otherUsers));
+                console.log("res in getother user",res);
             } catch (error) {
                 toast.error(error.response.data.message);
                 console.log(error);

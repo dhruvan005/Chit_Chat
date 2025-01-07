@@ -51,7 +51,7 @@ userModel.methods.generateAccessToken = function(){
             username: this.username,
             fullName: this.fullName
         },
-        process.env.JWT_ACCESS_TOKEN_SECRET,
+        process.env.JWT_SECRET_KEY,
         {
             expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRY
         }

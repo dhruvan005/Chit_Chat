@@ -1,54 +1,49 @@
-import { Conversation } from '../models/conversationModel.js';
 
-import { Message } from '../models/messageModel.js';
 
-import { getReceiverSocketId } from "../socket/socket.js"
 import initializeSocket from '../socket/socket.js';
+import { Conversation } from "../models/conversationModel.js";
+import { Message } from "../models/messageModel.js";
+import { getReceiverSocketId } from "../socket/socket.js";
 const io = initializeSocket();
-
-export const sendMessage = async (req, res) => {
+export const sendMessage = async (req,res) => {
     try {
-        const senderId = req.id; // logged in user's id
-        const receiverId = req.params.id; // in the url 
-        const { message } = req.body;
-        let gotConversation = await Conversation.findOne({ participants: { $all: [senderId, receiverId] } });
+        const senderId = req.id;
+        const receiverId = req.params.id;
+        const {message} = req.body;
 
-        if (senderId === receiverId) {
-            return res.status(400).json({ message: "Sender and receiver cannot be the same" });
-        }
+        let gotConversation = await Conversation.findOne({
+            participants:{$all : [senderId, receiverId]},
+        });
 
-        if (!gotConversation) {
+        if(!gotConversation){
             gotConversation = await Conversation.create({
-                participants: [senderId, receiverId],
-
-            });
-
-        }
+                participants:[senderId, receiverId]
+            })
+        };
         const newMessage = await Message.create({
             senderId,
             receiverId,
             message
         });
+        if(newMessage){
+            gotConversation.messages.push(newMessage._id);
+        };
+        
 
-        gotConversation.messages.push(newMessage._id);
-        await gotConversation.save(); // Save once to avoid ParallelSaveError
-
-        // Emit message through Socket.IO
+        await Promise.all([gotConversation.save(), newMessage.save()]);
+         
+        // SOCKET IO
         const receiverSocketId = getReceiverSocketId(receiverId);
-        if (receiverSocketId) {
-            io.to(receiverSocketId).emit("newMessage", newMessage); // Emit the new message
+        if(receiverSocketId){
+            io.to(receiverSocketId).emit("newMessage", newMessage);
         }
-
-        return res.status(201).json({ newMessage });
-
+        return res.status(201).json({
+            newMessage
+        })
     } catch (error) {
-        console.log("Error in sendMessage", error);
-        return res.status(500).json({ message: "Server error" });
+        console.log(error);
     }
 }
-
-
-// this get message gives the conversation between specific id's
 export const getMessage = async (req, res) => {
     try {
         const receiverId = req.params.id;

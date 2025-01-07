@@ -21,7 +21,7 @@ const initializeSocket = (server) => {
             userSocketMap[userId] = socket.id
         }
         socket.on('newMessage', (message) => {
-            // console.log('New message received at socket.js ', message);
+            console.log('New message received at socket.js ', message);
             // getReceiverSocketId while user is online then and then it will give SocketId otherwise it will givve undefined 
             const receiverSocketId = getReceiverSocketId(message?.receiverId);
 
@@ -50,3 +50,42 @@ export default initializeSocket;
 
 
 export { getReceiverSocketId }
+
+
+// import {Server} from "socket.io";
+// import http from "http";
+// import express from "express";
+
+// const app = express();
+
+// const server = http.createServer(app);
+// const io = new Server(server, {
+//     cors:{
+//         origin:['http://localhost:3000'],
+//         methods:['GET', 'POST'],
+//     },
+// });
+
+// export const getReceiverSocketId = (receiverId) => {
+//     return userSocketMap[receiverId];
+// }
+
+// const userSocketMap = {}; // {userId->socketId}
+
+
+// io.on('connection', (socket)=>{
+//     const userId = socket.handshake.query.userId
+//     if(userId !== undefined){
+//         userSocketMap[userId] = socket.id;
+//     } 
+
+//     io.emit('getOnlineUsers',Object.keys(userSocketMap));
+
+//     socket.on('disconnect', ()=>{
+//         delete userSocketMap[userId];
+//         io.emit('getOnlineUsers',Object.keys(userSocketMap));
+//     })
+
+// })
+
+// export {app, io, server};

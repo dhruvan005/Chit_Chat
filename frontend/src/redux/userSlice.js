@@ -4,7 +4,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         authUser: JSON.parse(localStorage.getItem('authUser')) || null,
-        otherUser: [],
+        otherUsers: [],
         selectedUser: null,
         onlineUsers :null
     },
@@ -13,8 +13,8 @@ const userSlice = createSlice({
             state.authUser = action.payload;
             localStorage.setItem('authUser', JSON.stringify(action.payload)); // Persist data
         },
-        setOtherUser: (state, action) => {
-            state.otherUser = action.payload
+        setOtherUsers: (state, action) => {
+            state.otherUsers = action.payload
 
         },
         clearSelectedUser: (state) => {
@@ -36,5 +36,7 @@ const userSlice = createSlice({
 }
 )
 
-export const { setAuthUser, setOtherUser , setSelectedUser, clearSelectedUser,logout,setOnlineUsers  } = userSlice.actions;
+export const { setAuthUser, setOtherUsers , setSelectedUser, clearSelectedUser,logout,setOnlineUsers  } = userSlice.actions;
 export default userSlice.reducer
+
+

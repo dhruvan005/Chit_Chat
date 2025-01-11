@@ -4,6 +4,7 @@ import Signup from './components/Signup';
 import './App.css';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import HomePage from './components/HomePage';
+import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 import { useEffect, useState } from 'react';
 import {useSelector,useDispatch} from "react-redux";
@@ -15,7 +16,11 @@ import { setOnlineUsers } from './redux/userSlice';
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<HomePage/>
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    )
   },
   {
     path:"/register",
@@ -63,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;   

@@ -26,8 +26,9 @@ const userSlice = createSlice({
         logout: (state) => {
             state.authUser = null;
             state.selectedUser = null;
-            state.otherUser = null,
+            state.otherUsers = null,
             localStorage.removeItem('authUser'); // Clear persisted data on logout
+            localStorage.removeItem("token");
         } ,
         setOnlineUsers:(state, action) => {
             state.onlineUsers = action.payload

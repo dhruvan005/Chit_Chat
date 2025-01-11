@@ -29,7 +29,7 @@ app.use('/public', express.static(path.join("__dirname", 'public')));
 
 const corsOption={
     origin: process.env.FRONT_END_URI,
-    credentials:true
+    credentials: true
 };
 app.use(cors(corsOption)); 
 

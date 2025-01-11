@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { BiSearchAlt2 } from "react-icons/bi";
 import OtherUsers from './OtherUsers';
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -7,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setAuthUser, setOtherUsers, setSelectedUser } from '../redux/userSlice';
 import { setMessages } from '../redux/messageSlice';
+import { logout } from '../redux/userSlice'; // Adjust the import path as needed
 
 
 const Sidebar = () => {
     const [search, setSearch] = useState("");
+
     const { otherUsers } = useSelector(store => store.user);
     const dispatch = useDispatch();
 
@@ -18,14 +19,26 @@ const Sidebar = () => {
 
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`);
-            navigate("/login");
-            toast.success(res.data.message);
-            dispatch(setAuthUser(null));
-            dispatch(setMessages(null));
-            dispatch(setOtherUsers(null));
-            dispatch(setSelectedUser(null));
+            const token = localStorage.getItem('token');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            });
+            console.log("res on logout", res);
+
+            if (res.status === 200) {
+                dispatch(logout());
+                navigate("/login");
+                toast.success("Logged out successfully");
+            } else {
+                toast.error("Logout failed");
+            }
+
         } catch (error) {
+            toast.error("Logout failed");
             console.log(error);
         }
     }

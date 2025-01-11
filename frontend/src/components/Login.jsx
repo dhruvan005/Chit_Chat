@@ -3,12 +3,14 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch  } from "react-redux";
 import { setAuthUser } from "../redux/userSlice";
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,7 +18,7 @@ export default function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+  
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/login`, user, {
         headers: {
@@ -24,15 +26,21 @@ export default function Login() {
         },
         withCredentials: true
       });
-      
-      console.log("res on login" , res.data);
-      
+  
+      console.log("res on login", res.data);
+      console.log("token in login", res.data.token);
+  
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token);
+      console.log("Token set in localStorage:", localStorage.getItem('token')); // Log the token after setting it
+      } else {
+        console.error("Token is undefined");
+      }
+  
       navigate("/");
-        toast.success(res.data.message);
-        // console.log(res.data);
-        dispatch(setAuthUser(res.data))
-    
-
+      toast.success(res.data.message);
+      dispatch(setAuthUser(res.data));
+  
     } catch (error) {
       toast.error(error.response?.data?.message);
       console.log(error);

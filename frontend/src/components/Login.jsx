@@ -31,7 +31,8 @@ export default function Login() {
       console.log("token in login", res.data.token);
   
       if (res.data.token) {
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token ,{ expires: 1 });
+        Cookies.set("token" , res.data.token )
       console.log("Token set in localStorage:", localStorage.getItem('token')); // Log the token after setting it
       } else {
         console.error("Token is undefined");
@@ -52,9 +53,6 @@ export default function Login() {
   };
 
   return (
-
-
-
     <div className="flex justify-center  items-center w-[80vw]  min-h-screen ">
       <div className="w-[100%] max-w-md p-8 bg-slate-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 md:border md:border-slate-500  md:border-slate-500">
         <h1 className="text-4xl text-zinc-200 font-bold text-center mb-6">Login</h1>

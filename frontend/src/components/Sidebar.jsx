@@ -17,31 +17,21 @@ const Sidebar = () => {
 
     const navigate = useNavigate();
 
+
     const logoutHandler = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
+            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, {
                 withCredentials: true
             });
-            console.log("res on logout", res);
-
-            if (res.status === 200) {
-                dispatch(logout());
-                navigate("/login");
-                toast.success("Logged out successfully");
-            } else {
-                toast.error("Logout failed");
-            }
-
+            localStorage.removeItem('token');
+            toast.success('Logged out successfully');
+            dispatch(logout());
+            navigate("/login");
         } catch (error) {
-            toast.error("Logout failed");
-            console.log(error);
+            toast.error(error.response?.data?.message || 'Logout failed');
+            console.error(error);
         }
-    }
+    };
     const searchSubmitHandler = (e) => {
         e.preventDefault();
         const conversationUser = otherUsers?.find((user) => user.fullName.toLowerCase().includes(search.toLowerCase()));

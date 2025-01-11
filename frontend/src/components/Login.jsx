@@ -16,41 +16,42 @@ export default function Login() {
     password: "",
   });
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/login`, user, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true
-      });
-  
-      console.log("res on login", res.data);
-      console.log("token in login", res.data.token);
-  
-      if (res.data.token) {
-        localStorage.setItem('token', res.data.token ,{ expires: 1 });
-        Cookies.set("token" , res.data.token )
-      console.log("Token set in localStorage:", localStorage.getItem('token')); // Log the token after setting it
-      } else {
-        console.error("Token is undefined");
-      }
-  
-      navigate("/");
-      toast.success(res.data.message);
-      dispatch(setAuthUser(res.data));
-  
-    } catch (error) {
-      toast.error(error.response?.data?.message);
-      console.log(error);
-    }
-    setUser({
-      email: "",
-      password: "",
+ 
+const submitHandler = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/login`, user, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
     });
-  };
+
+    console.log("res on login", res.data);
+    console.log("token in login", res.data.token);
+
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token);
+      Cookies.set("token", res.data.token);
+      console.log("Token set in localStorage:", localStorage.getItem('token'));
+    } else {
+      console.error("Token is undefined");
+    }
+
+    navigate("/");
+    toast.success(res.data.message);
+    dispatch(setAuthUser(res.data));
+
+  } catch (error) {
+    toast.error(error.response?.data?.message);
+    console.log(error);
+  }
+  setUser({
+    email: "",
+    password: "",
+  });
+};
 
   return (
     <div className="flex justify-center  items-center w-[80vw]  min-h-screen ">

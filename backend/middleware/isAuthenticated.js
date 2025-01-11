@@ -3,16 +3,15 @@ import jwt from "jsonwebtoken";
 const isAuthenticated = async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log("token in auth" , token);
-    console.log(" req.cookies",  req.cookies);
+    console.log("token in auth", token);
+    console.log("req.cookies", req.cookies);
 
-    // console.log("Token from cookies:", token); // Debugging log
     if (!token) {
       return res.status(401).json({ message: "Unauthenticated" });
     }
     const secretKey = process.env.JWT_SECRET_KEY;
-    const decoded =  jwt.verify(token, secretKey);
-    // console.log("Decoded token:", decoded); // Debugging log
+    const decoded = jwt.verify(token, secretKey);
+    console.log("Decoded token:", decoded);
 
     if (!decoded) {
       return res.status(401).json({ message: "Invalid Token" });

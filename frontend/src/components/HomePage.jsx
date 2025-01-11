@@ -44,7 +44,7 @@ const HomePage = () => {
     if (!authUser) {
       navigate("/login");
     }
-  }, []);
+  }, [authUser , navigate ]);
   return (
     <div className='flex rounded-lg  h-full overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
       <div className="w-[20vw]">

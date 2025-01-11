@@ -37,7 +37,7 @@ export default function MessageContainer() {
           <div> <img className="h-40 " src={authUser?.profilePhoto} alt="" /></div>
           <div className="h-9"></div>
           <h1 className="text-4xl font-bold text-gray-700">
-            Welcome back, <span className="text-indigo-600">{authUser?.fullName}</span>! 🎉
+            Welcome , <span className="text-indigo-600">{authUser?.fullName}</span>! 🎉
           </h1>
           <h3 className="text-xl text-zinc-500 mt-4"> Message Your friend and get Updates</h3>
         </div>

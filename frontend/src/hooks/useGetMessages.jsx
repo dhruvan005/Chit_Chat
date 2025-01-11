@@ -15,8 +15,13 @@ export default function useGetMessages () {
             if (!id) return;
             
             try {
-                axios.defaults.withCredentials = true;
-                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}`)
+               
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}` ,  {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                })
                 
                 if (isSubscribed) {
                     dispatch(setMessages(response.data || [])) // Ensure we always have an array

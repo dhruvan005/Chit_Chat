@@ -13,8 +13,15 @@ export default function useGetOtherUsers() {
         const featchOtherUsers = async () => {
             setLoading(true);
             try {
-                axios.defaults.withCredentials = true;
-                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user`);
+               
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user`, 
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        withCredentials: true
+                    }
+                );
                 dispatch(setOtherUsers(res.data.otherUsers));
                 // console.log("res in getother user",res);
             } catch (error) {

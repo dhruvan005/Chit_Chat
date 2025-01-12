@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useDispatch  } from "react-redux";
 import { setAuthUser } from "../redux/userSlice";
-import Cookies from 'js-cookie';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ const submitHandler = async (e) => {
     if (res.data.token) {
       localStorage.setItem('token', res.data.token);
       // Cookies.set("token", res.data.token);
-      console.log("Token set in localStorage:", localStorage.getItem('token'));
+      // console.log("Token set in localStorage:", localStorage.getItem('token'));
     } else {
       console.error("Token is undefined");
     }

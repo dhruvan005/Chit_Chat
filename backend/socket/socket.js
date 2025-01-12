@@ -21,7 +21,7 @@ const initializeSocket = (server) => {
             userSocketMap[userId] = socket.id
         }
         socket.on('newMessage', (message) => {
-            console.log('New message received at socket.js ', message);
+            // console.log('New message received at socket.js ', message);
             // getReceiverSocketId while user is online then and then it will give SocketId otherwise it will givve undefined 
             const receiverSocketId = getReceiverSocketId(message?.receiverId);
 

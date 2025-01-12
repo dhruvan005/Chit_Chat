@@ -33,9 +33,9 @@ export default function SendInput() {
                     withCredentials: true
                 }
             );
-            console.log("res in SI" , res);
+            // console.log("res in SI" , res);
             const newMessage = res?.data?.newMessage;
-            console.log("newMessage in SI" , newMessage);
+            // console.log("newMessage in SI" , newMessage);
 
             // this will send message as "newMessage" to the selected user_Id 
             //  -> the socket recives as "newMessage" and 

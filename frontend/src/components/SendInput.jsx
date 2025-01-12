@@ -24,7 +24,7 @@ export default function SendInput() {
         try {
           
             const token = localStorage.getItem('token');
-            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/send/${id}`, 
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/message/send/${id}`, { message } ,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -33,8 +33,9 @@ export default function SendInput() {
                     withCredentials: true
                 }
             );
-
+            console.log("res in SI" , res);
             const newMessage = res?.data?.newMessage;
+            console.log("newMessage in SI" , newMessage);
 
             // this will send message as "newMessage" to the selected user_Id 
             //  -> the socket recives as "newMessage" and 
@@ -65,7 +66,7 @@ export default function SendInput() {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                         />
-                        <button onClick={onSubmitHandler}>
+                        <button >
                             <svg
                                 className="cursor-pointer"
                                 fill="#A6ADBB"

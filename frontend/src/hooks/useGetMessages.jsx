@@ -16,7 +16,7 @@ export default function useGetMessages () {
             
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}`, 
+                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}`, 
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,

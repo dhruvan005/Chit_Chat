@@ -28,12 +28,12 @@ const submitHandler = async (e) => {
       withCredentials: true
     });
 
-    console.log("res on login", res.data);
-    console.log("token in login", res.data.token);
+    // console.log("res on login", res.data);
+    // console.log("token in login", res.data.token);
 
     if (res.data.token) {
       localStorage.setItem('token', res.data.token);
-      Cookies.set("token", res.data.token);
+      // Cookies.set("token", res.data.token);
       console.log("Token set in localStorage:", localStorage.getItem('token'));
     } else {
       console.error("Token is undefined");

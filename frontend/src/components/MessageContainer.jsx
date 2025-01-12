@@ -9,8 +9,7 @@ export default function MessageContainer() {
   const { selectedUser, authUser, onlineUsers } = useSelector((store) => store.user);
   const isOnline = Array.isArray(onlineUsers) && onlineUsers.includes(selectedUser?._id);
 
-  // console.log("MessageContainer rendering");
-  // console.log("selectedUser:", selectedUser);
+
 
   return (
     <>

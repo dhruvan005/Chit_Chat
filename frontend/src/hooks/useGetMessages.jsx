@@ -15,13 +15,16 @@ export default function useGetMessages () {
             if (!id) return;
             
             try {
-               
-                const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}` ,  {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                })
+                const token = localStorage.getItem('token');
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/${id}`, 
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        withCredentials: true
+                    }
+                );
                 
                 if (isSubscribed) {
                     dispatch(setMessages(response.data || [])) // Ensure we always have an array

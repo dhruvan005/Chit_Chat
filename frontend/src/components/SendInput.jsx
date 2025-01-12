@@ -22,10 +22,16 @@ export default function SendInput() {
         e.preventDefault();
         if (!message.trim()) return; // Avoid empty messages
         try {
-            const res = await axios.post(
-                `${import.meta.env.VITE_API_BASE_URL}/message/send/${id}`,
-                { message },
-                { headers: { "Content-Type": "application/json" }, withCredentials: true }
+          
+            const token = localStorage.getItem('token');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/message/send/${id}`, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
             );
 
             const newMessage = res?.data?.newMessage;

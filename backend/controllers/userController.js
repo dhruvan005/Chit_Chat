@@ -114,7 +114,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    console.log("cookies in logout route",req.cookies);
+    
     res.clearCookie("token");
     // console.log("user logged out successfully");
     console.log("User logged out successfully");

@@ -20,9 +20,16 @@ const Sidebar = () => {
 
     const logoutHandler = async () => {
         try {
-            await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, {
-                withCredentials: true
-            });
+            const token = localStorage.getItem('token');
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, 
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
+            );
             localStorage.removeItem('token');
             toast.success('Logged out successfully');
             dispatch(logout());

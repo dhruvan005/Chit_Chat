@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io': {
-        target: process.env.NODE_ENV === 'production' ? 'https://chit-chat-r32l.onrender.com' : 'http://localhost:3000',
+        target:  'https://chit-chat-r32l.onrender.com' ,
         ws: true,
         changeOrigin: true,
       },
